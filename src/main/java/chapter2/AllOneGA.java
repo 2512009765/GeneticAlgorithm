@@ -21,12 +21,12 @@ public class AllOneGA {
 
         //终止
         while (ga.isTerminationConditionMet(population) == false) {
-            //打印这个种群里面最大的种群适应度
+            //打印这个种群里面最大的种群适应度 【重要将种群按照适应度排列了】
             System.out.println("Best solution: " + population.getFittest(0).toString());
 
-            //交叉
-
-            //变异
+            //交叉（可以将他的解 停滞在局部最优）
+            population = ga.crossoverPopulation(population);
+            //变异 （可以将他的解踢向更好的解）
 
             //计算种群的适应度
             ga.evalPopulation(population);

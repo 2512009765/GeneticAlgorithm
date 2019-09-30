@@ -16,13 +16,14 @@ public class Population {
      */
     private Individual population[];
     /**
-     * 总群的适应度？
+     * 总群的适应度？初始化的时候有设置种群适应度吗
      */
     private double populationFitness = -1;
 
     public Population(int populationSize) {
         this.population = new Individual[populationSize];
     }
+
     public Population(int populationSize,int chromosomeLength) {
         this.population = new Individual[populationSize];
         for (int individualCount = 0; individualCount < populationSize; individualCount++) {

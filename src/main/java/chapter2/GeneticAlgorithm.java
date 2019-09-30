@@ -85,4 +85,55 @@ public class GeneticAlgorithm {
         return false;
     }
 
+    /*===-轮盘赌注-===*/
+
+    //选取双亲
+    public Individual selectParent(Population population) {
+        Individual[] individuals = population.getIndividuals();
+        double populationFitness = population.getPopulationFitness();
+        //将种族适应度 取一个随机数据
+        double routeteWheelPositon = Math.random() * populationFitness;
+
+        //当个体的
+        double spinWheel = 0;
+        for (Individual individual : individuals) {
+            spinWheel += individual.getFitness();
+            if (spinWheel >= routeteWheelPositon) {
+                return individual;
+            }
+        }
+        return individuals[population.size() - 1];
+    }
+
+    //交叉
+    public Population crossoverPopulation(Population population) {
+        //新建立一个和原来一样规模的总群
+        Population newPopulation = new Population(population.size());
+
+        for (int populationIndex = 0; populationIndex < population.size(); populationIndex++) {
+            Individual parent1 = population.getFittest(populationIndex);
+            //如果交叉概率发生，且不是精英
+            if (this.crossoverRate > Math.random() && populationIndex > this.elitismCount) {
+                //子代（子代的染色体长度肯定一样）
+                Individual offspring = new Individual(parent1.getChromosomeLength());
+                //
+                Individual parent2 = selectParent(population);
+                //子代基因是双亲的基因获取
+                for (int geneIndex = 0; geneIndex < parent1.getChromosomeLength(); geneIndex++) {
+
+                    if (0.5 > Math.random()) {
+                        offspring.setGene(geneIndex, parent1.getGene(geneIndex));
+                    } else {
+                        offspring.setGene(geneIndex, parent2.getGene(geneIndex));
+                    }
+                }
+                //将交叉基因后的个体加入到新的种群汇总
+                newPopulation.setIndividual(populationIndex, offspring);
+            } else {
+                //将个体直接加入新的种群（精英主义/没有发生交叉概率）
+                newPopulation.setIndividual(populationIndex, parent1);
+            }
+        }
+        return newPopulation;
+    }
 }

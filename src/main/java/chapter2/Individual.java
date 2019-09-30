@@ -29,7 +29,7 @@ public class Individual {
         }
     }
 
-    private void setGene(int offset, int gene) {
+    public void setGene(int offset, int gene) {
         this.chromosome[offset] = gene;
     }
 
