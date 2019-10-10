@@ -136,4 +136,17 @@ public class GeneticAlgorithm {
         }
         return newPopulation;
     }
+
+    /**
+     * 变异
+     * @param population
+     * @return
+     */
+    public Population mutatePopulation(Population population) {
+        //// TODO: 2019/10/9
+        return null;
+    }
+
+
+
 }
